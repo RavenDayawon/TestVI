@@ -1,0 +1,460 @@
+/* Header block styles */
+header {
+    background-color: #696a82;
+    height: 90px; /* Height of the header */
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999; /* Ensure the header stays on top */
+}
+
+  /* Main header styles */
+.main-header {
+    width: 100%;
+    height: 100px;
+    background-color: #696a82;
+    display: flex;
+    align-items: center; /* Center inner header vertically */
+}
+  
+/* Inner header styles */
+.title-container {
+    width: 100%;
+    height: calc(90px - 20px); /* Subtract top and bottom margins */
+    margin: 20px 0;
+    background-color: #d1cec1;
+    display: flex;
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center title horizontally */
+    position: relative;
+}
+
+footer {
+    display: none; /* Footer is hidden */
+}
+
+/* Logo circle styles */
+.logo-circle {
+    width: 90px; /* Circle size */
+    height: 90px;
+    background-color: #696a82;
+    border-radius: 50%; /* Makes it a perfect circle */
+    margin-left: 20px; /* Add a little bit of space on the left */
+    display: flex;
+    align-items: center; /* Center image vertically */
+    justify-content: center; /* Center image horizontally */
+    overflow: hidden; /* Ensures image doesn't overflow circle */
+    position: absolute; /* Position it at the left-most side */
+    left: 0; /* Align to the left */
+}
+
+/* Logo image styles */
+.logo-circle img {
+    width: 90%; /* Ensures the image scales to fit the circle */
+    height: 90%; /* Ensures the image scales to fit the circle */
+    object-fit: cover; /* Makes sure the image fits nicely inside */
+}
+
+/* Logo styles */
+.logo {
+    width: 80%; /* Adjust the size of the logo relative to the circle */
+    height: 80%; /* Maintain aspect ratio */
+}
+
+/* Header title styles with trapezoid edges */
+.header-title {
+    font-size: 3rem; /* Default font size for larger screens */
+    color: #696a82;
+    text-align: center;
+    width: 40%; /* Default width for larger screens */
+    padding: 10px 0;
+    position: relative;
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+/* Styling the toggle list */
+.toggle-list {
+    list-style: none; /* Remove default list styling */
+    padding: 0;
+    margin: 0;
+}
+
+.toggle-item {
+    display: flex;
+    justify-content: space-between; /* Align text and toggle slider */
+    align-items: center;
+    margin-bottom: 20px; /* Add spacing between items */
+    padding: 10px 0; /* Optional padding for better spacing */
+}
+
+.toggle-item:last-child {
+    border-bottom: none; /* Remove border for the last item */
+}
+
+/* Body styles */
+body {
+    background-color: #e1b496;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    position: relative; /* Ensure elements are positioned relative to this container */
+    top: 110px;
+    width: 15.1%;
+    height: calc(100vh - 130px); /* Adjust for the header and margins */
+    background-color: #696a82;
+    color: white;
+    padding: 15px; /* Padding for spacing inside the sidebar */
+    box-sizing: border-box; /* Include padding in height and width calculations */
+}
+
+/* Rectangle container */
+.rectangle-container {
+    display: flex; /* Align items horizontally */
+    gap: 20px; /* Space between the .sidebar-rectangle and the stacked rectangles */
+    align-items: flex-start; /* Align items at the top */
+}
+
+/* Sidebar rectangle (already defined) */
+.sidebar-rectangle {
+    background-color: #adcafe; /* Color for the rectangle */
+    width: calc(75% - 20px); /* Full width minus the margin */
+    height: 40px; /* Adjust the height as needed */
+    margin: 10px 0; /* Vertical margin only */
+}
+
+/* Stacked rectangles container */
+.stacked-rectangles {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    gap: 5px; /* Space between each rectangle */
+    padding-top: 10px; /* Add space inside the container at the top */
+}
+
+/* Individual stacked rectangles */
+.stacked-rectangle {
+    background-color: #d1cec1; /* Color for each rectangle */
+    width: 50px; /* Adjust the width as needed */
+    height: 10px; /* Adjust the height as needed */
+}
+
+.bottom-squares {
+    display: flex; /* Arrange squares horizontally */
+    justify-content: space-between; /* Even spacing between squares */
+    align-items: center; /* Align squares vertically */
+    margin-top: auto; /* Push the squares to the bottom */
+    padding-top: 10px; /* Add spacing above the squares */
+    padding-bottom: 14px;
+}
+
+.bottom-squares .square {
+    background-color: #adcafe; /* Default color */
+    height: 40px; /* Default height */
+}
+
+/* First square (large) */
+.bottom-squares .square:nth-child(1) {
+    width: 80px; /* Width for the first large square */
+}
+
+/* Second square (small) */
+.bottom-squares .square:nth-child(2) {
+    width: 10px; /* Width for the small square */
+    background-color: #adcafe; /* Optional color override */
+}
+
+/* Third square (small) */
+.bottom-squares .square:nth-child(3) {
+    width: 10px; /* Width for the small square */
+    background-color: #d1cec1; /* Optional color override */
+}
+
+/* Fourth square (large) */
+.bottom-squares .square:nth-child(4) {
+    width: 140px; /* Width for the second large square */
+    background-color: #d1cec1; /* Optional color override */
+}
+
+.toggle-container {
+    position: relative;
+    width: 98px;
+    height: 35px;
+}
+
+.toggle-checkbox {
+    display: none;
+}
+
+.toggle-label {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: #c8dbfd;
+    border-radius: 50px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s;
+}
+
+.toggle-ball {
+    position: absolute;
+    top: 50%;
+    width: 35px;
+    height: 35px;
+    transform: translateY(-50%);
+    transition: transform 0.3s;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.toggle-text {
+    color: #adcafe;
+    font-family: 'Artifakt Element', sans-serif;
+    font-weight: bold;
+    font-size: 20;
+    flex: 1; /* Allows the text to occupy the available space */
+    text-align: right; /* Aligns text to the left side */
+    margin-right: 15px; /* Adds space between the text and the toggle */
+}
+
+/* Specific styles for each switch */
+.toggle-container.switch1 .toggle-ball {
+    background-image: url('icon/resblu.png'); /* Icon for switch 1 */
+}
+.toggle-container.switch2 .toggle-ball {
+    background-image: url('icon/schoblu.png'); /* Icon for switch 2 */
+}
+.toggle-container.switch3 .toggle-ball {
+    background-image: url('icon/hosblu.png'); /* Icon for switch 3 */
+}
+.toggle-container.switch4 .toggle-ball {
+    background-image: url('icon/marblu.png'); /* Icon for switch 2 */
+}
+.toggle-container.switch5 .toggle-ball {
+    background-image: url('icon/storblu.png'); /* Icon for switch 3 */
+}
+.toggle-container.switch6 .toggle-ball {
+    background-image: url('icon/fireblu.png'); /* Icon for switch 2 */
+}
+.toggle-container.switch7 .toggle-ball {
+    background-image: url('icon/polblu.png'); /* Icon for switch 3 */
+}
+.toggle-container.switch8 .toggle-ball {
+    background-image: url('icon/vetblu.png'); /* Icon for switch 2 */
+}
+
+.blankblu img, .blankyel img {
+    position: absolute;
+    top: 50%;
+    width: 35px;
+    height: 35px;
+    transform: translateY(-50%);
+    transition: opacity 0.3s;
+}
+
+.blankblu img {
+    left: 0; /* Aligns to the left edge of the container */
+    opacity: 0; /* Initially hidden */
+    z-index: 0;
+}
+
+.blankyel img {
+    right: 0; /* Aligns to the right edge of the container */
+    opacity: 1; /* Initially visible */
+    z-index: 0;
+}
+
+.toggle-checkbox:checked ~ .blankblu img {
+    opacity: 1; /* Show when checked */
+}
+
+.toggle-checkbox:checked ~ .blankyel img {
+    opacity: 0; /* Hide when checked */
+}
+
+.toggle-checkbox:checked + .toggle-label {
+    background-color: #4caf50; /* Change to a highlight color */
+}
+
+.toggle-checkbox:checked + .toggle-label .toggle-ball {
+    transform: translate(66px, -50%);
+}
+
+.map-background {
+    position: absolute;
+    border-radius: 0px 15px 15px 0px;
+    top: 110px; /* Position it below the header */
+    left: 290px; /* Position it next to the sidebar */
+    width: calc(100% - 300px); /* Adjust width to fit within viewport, 250px sidebar + 20px margin */
+    height: calc(100vh - 130px); /* Adjust height to fit within viewport, 110px header + 20px bottom margin */
+    background-color: #696a82;
+}
+
+.map-container {
+    position: absolute;
+    top: 10px; /* 20px margin from the top */
+    right: 20px; /* 20px margin from the right */
+    bottom: 20px; /* 20px margin from the bottom */
+    left: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#map {
+    width: 99.5%;
+    height: 98%;
+    border-radius: 0px 10px 10px 0px;
+}
+
+/* Responsive styles for smaller PC monitors */
+@media (max-width: 1200px) {
+    .header-title {
+        font-size: 2.5rem; /* Adjust font size */
+        width: 35%; /* Adjust width */
+    }
+
+    .sidebar {
+        width: 20.1%;
+    }
+
+    .map-background {
+        left: 213px; /* Position it next to the sidebar */
+    }
+}
+
+@media (max-width: 992px) {
+    .header-title {
+        font-size: 2rem; /* Further reduce font size */
+        width: 30%; /* Adjust width */
+    }
+
+    .sidebar {
+        width: 20.1%;
+    }
+
+    .map-background {
+        left: 162px; /* Position it next to the sidebar */
+    }
+}
+
+  
+/* Responsive styles for mobile devices */
+@media (max-width: 768px) {
+    /* Hide the title on smaller screens */
+    .header-title, .main-header, .header-box {
+        display: none; /* Completely hide the title */
+    }
+
+    /* Center the logo in the header */
+    .logo-circle {
+        position: static; /* Remove absolute positioning */
+        margin: 0 auto; /* Center the logo horizontally */
+    }
+
+    .sidebar {
+        top: 70px;
+        left: 5%;
+        width: 90%;
+        height: calc(100vh - 160px); /* Adjust for the header and margins */
+        z-index: 999; /* Ensure it stays on top */
+        border-radius: 10px 10px 10px 10px;
+        box-shadow: 0 10px 8px rgba(0, 0, 0, 0.2);
+        transform: translateX(0); /* Sidebar starts visible */
+        opacity: 1; /* Fully visible */
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    }
+
+    /* Sidebar hidden state */
+    .sidebar.hidden {
+        transform: translateY(100%); /* Slide out to the left */
+        opacity: 0; /* Fade out */
+    }
+
+    footer {
+        display: flex; /* Show footer instead */
+        background-color: #696a82; /* Same as header */
+        height: 70px; /* Match header height */
+        width: 100%;
+        position: fixed;
+        bottom: 0; /* Position footer at the bottom */
+        z-index: 999; /* Ensure it stays on top */
+        align-items: center; /* Center contents vertically */
+        justify-content: center; /* Center contents horizontally */
+    }
+    
+    /* Additional styles for footer content */
+    .main-footer {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .title-container {
+        height: 55px;
+    }
+
+    .main-footer .logo-circle img {
+        width: 90%; /* Logo scaling for mobile */
+        height: 90%;
+        object-fit: cover;
+    }
+
+    .main-footer .header-title {
+        font-size: 1.5rem; /* Adjust title size for mobil   e */
+        color: white;
+    }
+
+    .map-background {
+        top: 10px;
+        left: 0px; /* Position it next to the sidebar */
+        height: calc(100vh - 95px); /* Adjust height to fit within viewport, 110px header + 20px bottom margin */
+        width: calc(100% - 5px); /* Adjust width to fit within viewport, 250px sidebar + 20px margin */
+    }
+
+    #map {
+        width: 98.25%;
+        height: 97.5%;
+    }
+
+    .bottom-squares {
+        display: flex; /* Arrange squares horizontally */
+        margin-top: auto; /* Push the squares to the bottom */
+        padding-top: 10px; /* Add spacing above the squares */
+        padding-bottom: 14px;
+    }
+    
+    .bottom-squares .square {
+        height: 40px; /* Default height */
+    }
+    
+    /* First square (large) */
+    .bottom-squares .square:nth-child(1) {
+        width: 100px; /* Width for the first large square */
+    }
+    
+    /* Second square (small) */
+    .bottom-squares .square:nth-child(2) {
+        width: 10px; /* Width for the small square */
+    }
+    
+    /* Third square (small) */
+    .bottom-squares .square:nth-child(3) {
+        width: 10px; /* Width for the small square */
+    }
+    
+    /* Fourth square (large) */
+    .bottom-squares .square:nth-child(4) {
+        width: 190px; /* Width for the second large square */
+    }
+}

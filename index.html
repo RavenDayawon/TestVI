@@ -1,0 +1,181 @@
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tanay Establishment Mapper</title>
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>    
+
+        <link href="https://db.onlinewebfonts.com/c/bf1ead8093f8b529c7581c1cefa75273?family=Artifakt+Element" rel="stylesheet">
+    </head>
+        
+    <body>
+        <header class="main-header">
+            <div class="title-container">
+                <div class="logo-circle">
+                    <img src="logo.png" alt="Logo">
+                </div>
+                <h1 class="header-title">Tanay Establishment Mapper</h1>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <!-- Toggle Switches -->
+            <ul class="toggle-list">
+				<div class="rectangle-container">
+					<div class="sidebar-rectangle"></div>
+					<div class="stacked-rectangles" data-resize-btn>
+						<div class="stacked-rectangle"></div>
+						<div class="stacked-rectangle"></div>
+					</div>
+				</div>
+                <li class="toggle-item">
+                    <span class="toggle-text">Diner</span>
+                    <div class="toggle-container switch1">
+                        <input type="checkbox" id="toggle1" class="toggle-checkbox">
+                        <label for="toggle1" class="toggle-label">
+                            <span class="toggle-ball"></span>
+                        </label>
+                        <div class="blankblu">
+                            <img src="icon/blankblu.png" alt="Blank Blue">
+                        </div>
+                        <div class="blankyel">
+                            <img src="icon/blankyel.png" alt="Blank Grey">
+                        </div>
+                    </div>
+                </li>
+                <li class="toggle-item">
+                    <span class="toggle-text">School</span>
+                    <div class="toggle-container switch2">
+                        <input type="checkbox" id="toggle2" class="toggle-checkbox">
+                        <label for="toggle2" class="toggle-label">
+                            <span class="toggle-ball"></span>
+                        </label>
+                        <div class="blankblu">
+                            <img src="icon/blankblu.png" alt="Blank Blue">
+                        </div>
+                        <div class="blankyel">
+                            <img src="icon/blankyel.png" alt="Blank Grey">
+                        </div>
+                    </div>
+                </li>
+                <li class="toggle-item">
+                    <span class="toggle-text">Hospital</span>
+                    <div class="toggle-container switch3">
+                        <input type="checkbox" id="toggle3" class="toggle-checkbox">
+                        <label for="toggle3" class="toggle-label">
+                            <span class="toggle-ball"></span>
+                        </label>
+                        <div class="blankblu">
+                            <img src="icon/blankblu.png" alt="Blank Blue">
+                        </div>
+                        <div class="blankyel">
+                            <img src="icon/blankyel.png" alt="Blank Grey">
+                        </div>
+                    </div>
+                </li>
+                <li class="toggle-item">
+                    <span class="toggle-text">Supermarket</span>
+                    <div class="toggle-container switch4">
+                        <input type="checkbox" id="toggle4" class="toggle-checkbox">
+                        <label for="toggle4" class="toggle-label">
+                            <span class="toggle-ball"></span>
+                        </label>
+                        <div class="blankblu">
+                            <img src="icon/blankblu.png" alt="Blank Blue">
+                        </div>
+                        <div class="blankyel">
+                            <img src="icon/blankyel.png" alt="Blank Grey">
+                        </div>
+                    </div>
+                </li>
+                <li class="toggle-item">
+                    <span class="toggle-text">Store</span>
+                    <div class="toggle-container switch5">
+                        <input type="checkbox" id="toggle5" class="toggle-checkbox">
+                        <label for="toggle5" class="toggle-label">
+                            <span class="toggle-ball"></span>
+                        </label>
+                        <div class="blankblu">
+                            <img src="icon/blankblu.png" alt="Blank Blue">
+                        </div>
+                        <div class="blankyel">
+                            <img src="icon/blankyel.png" alt="Blank Grey">
+                        </div>
+                    </div>
+                </li>
+                <li class="toggle-item">
+                    <span class="toggle-text">Fire Station</span>
+                    <div class="toggle-container switch6">
+                        <input type="checkbox" id="toggle6" class="toggle-checkbox">
+                        <label for="toggle6" class="toggle-label">
+                            <span class="toggle-ball"></span>
+                        </label>
+                        <div class="blankblu">
+                            <img src="icon/blankblu.png" alt="Blank Blue">
+                        </div>
+                        <div class="blankyel">
+                            <img src="icon/blankyel.png" alt="Blank Grey">
+                        </div>
+                    </div>
+                </li>
+                <li class="toggle-item">
+                    <span class="toggle-text">Police Station</span>
+                    <div class="toggle-container switch7">
+                        <input type="checkbox" id="toggle7" class="toggle-checkbox">
+                        <label for="toggle7" class="toggle-label">
+                            <span class="toggle-ball"></span>
+                        </label>
+                        <div class="blankblu">
+                            <img src="icon/blankblu.png" alt="Blank Blue">
+                        </div>
+                        <div class="blankyel">
+                            <img src="icon/blankyel.png" alt="Blank Grey">
+                        </div>
+                    </div>
+                </li>
+                <li class="toggle-item">
+                    <span class="toggle-text">Vet</span>
+                    <div class="toggle-container switch8">
+                        <input type="checkbox" id="toggle8" class="toggle-checkbox">
+                        <label for="toggle8" class="toggle-label">
+                            <span class="toggle-ball"></span>
+                        </label>
+                        <div class="blankblu">
+                            <img src="icon/blankblu.png" alt="Blank Blue">
+                        </div>
+                        <div class="blankyel">
+                            <img src="icon/blankyel.png" alt="Blank Grey">
+                        </div>
+                    </div>
+                </li>
+                <!-- Add more toggle items here -->
+            </ul>
+            <div class="bottom-squares">
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+            </div>            
+        </div>
+
+        <div class="map-background">
+            <div class="map-container" id="map">
+                <!-- Map will be rendered here -->
+            </div>
+        </div>  
+
+        <footer class="main-footer">
+            <div class="title-container">
+                <div class="logo-circle" id="toggleSidebar">
+                    <img src="logo.png" alt="Logo">
+                </div>
+            </div>
+        </footer>
+
+        <script src="script.js"></script>
+    </body>
+</html>
