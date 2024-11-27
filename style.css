@@ -440,7 +440,6 @@ body {
         width: calc(100% - 10px); /* 10px margin for sides */
         position: fixed; /* Stick the footer to the bottom */
         bottom: 10px; /* Add 10px margin from the bottom of the viewport */
-        z-index: 999; /* Ensure it appears above other elements */
         align-items: center; /* Vertically center content */
         justify-content: center; /* Horizontally center content */
         margin: 0 auto; /* Center horizontally */
@@ -471,13 +470,10 @@ body {
     }
 
     .map-background {
-        top: 10px; /* Ensure 10px margin at the top */
-        left: 0px; /* Position it at the start of the viewport */
-        height: calc(100vh - 80px - 10px); /* Account for footer height (70px) and 10px margin */
-        width: calc(100% - 10px); /* 10px margin for sides */
-        margin: 0 5px; /* Add 5px margin to the left and right */
-        position: absolute;
-        background-color: #696a82;
+        top: 10px;
+        left: 0px; /* Position it next to the sidebar */
+        height: calc(100vmin - 105px); /* Adjust height to fit within viewport, 110px header + 20px bottom margin */
+        width: calc(100% - 5px); /* Adjust width to fit within viewport, 250px sidebar + 20px margin */
     }
 
     #map {
