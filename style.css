@@ -471,7 +471,7 @@ body {
     .map-background {
         top: 10px;
         left: 0px; /* Position it next to the sidebar */
-        height: calc(100vmin); /* Adjust height to fit within viewport, 110px header + 20px bottom margin */
+        height: calc(150vmin); /* Adjust height to fit within viewport, 110px header + 20px bottom margin */
         width: calc(100% - 5px); /* Adjust width to fit within viewport, 250px sidebar + 20px margin */
     }
 
