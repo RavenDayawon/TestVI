@@ -1,33 +1,64 @@
 document.addEventListener("DOMContentLoaded", function() {
     // Tanay, Rizal center and bounds
     var tanayCenter = [14.498230, 121.285389]; // Approximate center of the defined area
+    var minZoomLevel = window.innerWidth <= 768 ? 16 : 17; // Set lower minZoom for mobile devices
+
     var map = L.map('map', {
         center: tanayCenter,
         zoom: 18,            // Initial zoom level for a closer view of the area
         maxZoom: 18,         // Max zoom to keep focus on Tanay
-        minZoom: 17,         // Min zoom to prevent zooming out too far
+        minZoom: minZoomLevel, // Adjust minZoom based on device
         maxBounds: [         // Restrict the view to these bounds
             [14.487523, 121.274111],  // Southwest corner of the defined area
             [14.513158, 121.296611]   // Northeast corner of the defined area
         ],
-
         maxBoundsViscosity: 1.0,  // Makes the boundaries hard to cross
         bounceAtZoomLimits: false // Prevents snapping back when hitting the boundary
-    });
-
-    const toggleButton = document.getElementById("toggleSidebar");
-    const sidebar = document.getElementById("sidebar");
-
-    // Toggle sidebar visibility
-    toggleButton.addEventListener("click", function () {
-        if (window.innerWidth <= 768) {
-            sidebar.classList.toggle("hidden");
-        }
     });
 
     L.tileLayer('https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=xZL9GQgnbzaUJBDNErxW', {
         attribution: '&copy; <a href="https://www.maptiler.com/copyright/">MapTiler</a>',
     }).addTo(map);
+
+    // Sidebar toggle logic
+    const toggleButton = document.getElementById("toggleSidebar");
+    const sidebar = document.getElementById("sidebar");
+
+    // Initially hide the sidebar
+    sidebar.classList.remove("visible");
+
+    toggleButton.addEventListener("click", function () {
+        if (window.innerWidth <= 600) {
+            sidebar.classList.toggle("visible");
+            logoCircle.classList.toggle("scaled"); // Always toggle 'scaled' on logo click
+        }
+    });
+
+    const logoCircle = document.getElementById("toggleSidebar");
+
+    if (!logoCircle) {
+        console.error("Logo element not found!"); // Log an error if the logo is not found
+    }
+
+    // Function to close the sidebar
+    function closeSidebar() {
+        sidebar.classList.remove("visible");
+        if (logoCircle.classList.contains("scaled")) {
+            logoCircle.classList.remove("scaled");
+        }
+    }
+
+    // Close the sidebar when clicking anywhere outside of it
+    document.addEventListener("click", function (event) {
+        const isClickInsideSidebar = sidebar.contains(event.target);
+        const isClickOnLogo = toggleButton.contains(event.target);
+
+        // Close the sidebar and toggle the scaled class only if the sidebar is visible
+        if (!isClickInsideSidebar && !isClickOnLogo && sidebar.classList.contains("visible")) {
+            closeSidebar();
+        }
+    });
+
 
 
     // POI Categories // Add new locations here
@@ -277,53 +308,50 @@ document.addEventListener("DOMContentLoaded", function() {
         ],
 
         schools: [
-            { name: "RIKA HILLS ACADEMY", coords: [14.510995841513147, 121.28161463377651] },
-            { name: "Blessed Hope Christian School of Tanay INC", coords: [14.504975365060712, 121.28174624493325] },
-            { name: "STI ACADEMIC CENTER", coords: [14.50873271387205, 121.28726756432658] },
-            { name: "Greenfield Montessori School", coords: [14.504488997018386, 121.28746620589993] },
-            { name: "San Ildefonso College", coords: [14.498872998395916, 121.28521695362856] },
-            { name: "Marciana P. Catolos National High School", coords: [14.497466833481905, 121.2809405146004] },
-            { name: "St. Therese School of Tanay", coords: [14.49586719646437, 121.28087614158564] },
-            { name: "Patricio Jarin Memorial Elementary School", coords: [14.495659450549972, 121.27928827388857] },
-            { name: "Tanay West Integrated National High School", coords: [14.492273164625557, 121.28357980824366] },
-            { name: "Tanay National High School", coords: [14.498075570467174, 121.29261271550536] },
-            { name: "EJIST Tanay", coords: [14.497764490643167, 121.29326872633987] },
-            { name: "Sunrise Development School", coords: [14.504928735801489, 121.29843251764407] },
-            { name: "Tanay Ville Elementary School", coords: [14.519219113505743, 121.28735517680997] },
-            { name: "Marciana P. Catolos Elementary School", coords: [14.497580206268818, 121.28111705037297] },
-            { name: "Tanay Sikaran Martial Art School", coords: [14.494059151209315, 121.27936437641958] },
-            { name: "Wawa Elementary School", coords: [14.492846708110992, 121.28501516612037] },
-            { name: "Lamb Of Christ Magistrate School", coords: [14.495203654590254, 121.27828610788598] },
-            { name: "Rizal Marine & Technocomputer College (RMTC)", coords: [14.497968075452127, 121.28573624474681] },
-            { name: "Tesda Accredited School", coords: [14.494977413010075, 121.29089940915841] },
-            { name: "Asian Institute of Computer Studies, Tanay Branch", coords: [14.494069213979383, 121.29135220145332] },
-            { name: "Gratia Divina School Incorporated", coords: [14.50487361577407, 121.28930558167673] },
-            { name: "Don Domingo Capistrano Memorial Elementary School", coords: [14.497573530888605, 121.28926734798847] },
-            { name: "Niftylink Driving School - Tanay", coords: [14.502257885093874, 121.29687031504896] },
-            { name: "Academy Of St. Peter, Tanay", coords: [14.513311370748367, 121.28354862406371] }
+            { name: "RIKA HILLS ACADEMY", coords: [14.510995841513147, 121.28161463377651], link:"https://www.google.com/maps/place/RIKA+HILLS+ACADEMY/@14.5108002,121.279673,16z/data=!4m6!3m5!1s0x3397ea691358f2b5:0x244af7988b79c323!8m2!3d14.5109976!4d121.2816149!16s%2Fg%2F11y751qdxf?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Blessed Hope Christian School of Tanay INC", coords: [14.504975365060712, 121.28174624493325], link:"https://www.google.com/maps/place/Blessed+Hope+Christian+School+of+Tanay+INC/@14.5049819,121.2791709,17z/data=!3m1!4b1!4m6!3m5!1s0x3397ea6b37a74725:0x2ee01729274a72b8!8m2!3d14.5049767!4d121.2817458!16s%2Fg%2F1hhwl0xq9?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "STI ACADEMIC CENTER", coords: [14.50873271387205, 121.28726756432658], link:"https://www.google.com/maps/place/STI+ACADEMIC+CENTER/@14.5088605,121.2832772,17z/data=!4m6!3m5!1s0x3397ea418a3d3457:0x4b86b310add17c6e!8m2!3d14.5087312!4d121.2872674!16s%2Fg%2F11vw_x19bh?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Greenfield Montessori School", coords: [14.504488997018386, 121.28746620589993], link:"https://www.google.com/maps/place/Greenfield+Montessori+School/@14.5088605,121.2832772,17z/data=!4m6!3m5!1s0x3397ea406f048fab:0xee91787dba59d72e!8m2!3d14.5045123!4d121.2875012!16s%2Fg%2F1hc23h9j4?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "San Ildefonso College", coords: [14.498872998395916, 121.28521695362856], link:"https://www.google.com/maps/place/San+Ildefonso+de+Toledo+Parish+Church+-+Tanay,+Rizal+(Diocese+of+Antipolo)/@14.4985027,121.2821199,17z/data=!3m1!4b1!4m6!3m5!1s0x3397ea160607dc03:0xe69647c9eff0932f!8m2!3d14.4984975!4d121.2846948!16s%2Fg%2F11bwh5tr89?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Marciana P. Catolos National High School", coords: [14.497466833481905, 121.2809405146004], link:"https://www.google.com/maps/place/Marciana+P.+Catolos+National+High+School/@14.4976431,121.2785191,17z/data=!4m6!3m5!1s0x3397ea16db22b031:0xf5d945fbcf20f6b7!8m2!3d14.4974662!4d121.2809089!16s%2Fg%2F12qgldc3b?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "St. Therese School of Tanay", coords: [14.49586719646437, 121.28087614158564], link:"https://www.google.com/maps/place/St.+Therese+School+of+Tanay/@14.4959008,121.2783149,17z/data=!3m1!4b1!4m6!3m5!1s0x3397ea17392bd387:0x4a94b1d2feba468c!8m2!3d14.4958956!4d121.2808898!16s%2Fg%2F11c72q4yj9?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Patricio Jarin Memorial Elementary School", coords: [14.495659450549972, 121.27928827388857], link:"https://www.google.com/maps/place/Patricio+Jarin+Memorial+Elementary+School/@14.4956984,121.2767203,17z/data=!3m1!4b1!4m6!3m5!1s0x3397ea174b673c95:0x38437fea06f6d36b!8m2!3d14.4956932!4d121.2792952!16s%2Fg%2F1v3kf0dk?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Tanay West Integrated National High School", coords: [14.492273164625557, 121.28357980824366], link:"https://www.google.com/maps/place/Tanay+West+Integrated+National+High+School/@14.492296,121.2810245,17z/data=!3m1!4b1!4m6!3m5!1s0x3397ea18469bbe25:0x67bb072fc27c3302!8m2!3d14.4922908!4d121.2835994!16s%2Fg%2F11g6mvr_51?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Tanay National High School", coords: [14.498075570467174, 121.29261271550536], link:"https://www.google.com/maps/place/Tanay+National+High+School/@14.4980792,121.2900481,17z/data=!3m1!4b1!4m6!3m5!1s0x3397ea395d9deb8f:0xb0978a226eab02b5!8m2!3d14.498074!4d121.292623!16s%2Fg%2F11bwny18cm?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "EJIST Tanay", coords: [14.497764490643167, 121.29326872633987], link:"https://www.google.com/maps/place/EJIST+Tanay/@14.4980792,121.2900481,17z/data=!4m6!3m5!1s0x3397eb7de2c03b73:0x27cfdb001be9ef2!8m2!3d14.4977804!4d121.293285!16s%2Fg%2F11y2ndmzrn?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Sunrise Development School", coords: [14.504928735801489, 121.29843251764407], link:"https://www.google.com/maps/place/Sunrise+Development+School/@14.5050039,121.2957542,17z/data=!3m1!4b1!4m6!3m5!1s0x3397ea4e42a3a577:0xadf48a8a2f5ddd36!8m2!3d14.5049987!4d121.2983291!16s%2Fg%2F11zlq4t0f?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Tanay Ville Elementary School", coords: [14.519219113505743, 121.28735517680997], link:"https://www.google.com/maps/place/Tanay+Ville+Elementary+School/@14.5191994,121.284783,17z/data=!3m1!4b1!4m6!3m5!1s0x3397ea3d92e4beb1:0xe72ae2807347f462!8m2!3d14.5191942!4d121.2873579!16s%2Fg%2F11x9r01dt?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3Dhttps://www.google.com/maps/place/Tanay+Ville+Elementary+School/@14.5191994,121.284783,17z/data=!3m1!4b1!4m6!3m5!1s0x3397ea3d92e4beb1:0xe72ae2807347f462!8m2!3d14.5191942!4d121.2873579!16s%2Fg%2F11x9r01dt?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Marciana P. Catolos Elementary School", coords: [14.497580206268818, 121.28111705037297], link:"https://www.google.com/maps/place/Marciana+P.+Catolos+Elementary+School/@14.4975507,121.2813771,19z/data=!4m6!3m5!1s0x3397ea3d92e4beb1:0x9470c7435817489d!8m2!3d14.4976379!4d121.281094!16s%2Fg%2F11ycydtq9?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Tanay Sikaran Martial Art School", coords: [14.494059151209315, 121.27936437641958], link:"https://www.google.com/maps/place/Tanay+sikaran+martial+art+school/@14.4976431,121.2785191,17z/data=!4m6!3m5!1s0x3397eb878e6d02c9:0x5c4b3e5162350795!8m2!3d14.4940643!4d121.2793683!16s%2Fg%2F11v9_v8tf7?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Wawa Elementary School", coords: [14.492846708110992, 121.28501516612037], link:"https://www.google.com/maps/place/Wawa+Elementary+School/@14.4940695,121.2767934,17z/data=!4m6!3m5!1s0x3397ea180fa4ae7f:0x650c591da99c7f45!8m2!3d14.4928478!4d121.2850143!16s%2Fg%2F1tctv2gy?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Lamb Of Christ Magistrate School", coords: [14.495203654590254, 121.27828610788598], link:"https://www.google.com/maps/place/Lamb+Of+Christ+Magistrate+School/@14.492853,121.2824394,17z/data=!4m6!3m5!1s0x3397ea1098698ee5:0xf73d54b63b6d0a1e!8m2!3d14.495205!4d121.278291!16s%2Fg%2F1hf4ln582?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Rizal Marine & Technocomputer College (RMTC)", coords: [14.497968075452127, 121.28573624474681], link:"https://www.google.com/maps/place/Rizal+Marine+%26+Technocomputer+College+(RMTC)/@14.4979762,121.2831621,17z/data=!3m1!4b1!4m6!3m5!1s0x3397ea3df70ef897:0xa043f90b4be9d41c!8m2!3d14.497971!4d121.285737!16s%2Fg%2F1pzx6lsmc?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Tesda Accredited School", coords: [14.494977413010075, 121.29089940915841], link:"https://www.google.com/maps/place/Tesda+Accredited+School/@14.4949862,121.2887934,17z/data=!3m1!4b1!4m6!3m5!1s0x3397ea3c838acd85:0x809364df96e5032!8m2!3d14.494982!4d121.290897!16s%2Fg%2F1pzpn9dbw?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Asian Institute of Computer Studies, Tanay Branch", coords: [14.494069213979383, 121.29135220145332], link:"https://www.google.com/maps/place/Asian+Institute+of+Computer+Studies,+Tanay+Branch/@14.4937603,121.2901693,17.25z/data=!4m6!3m5!1s0x3397ea3c8251e4bf:0x27e6c3336b7316e1!8m2!3d14.4941007!4d121.291342!16s%2Fg%2F11bzvw61xv?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Gratia Divina School Incorporated", coords: [14.50487361577407, 121.28930558167673], link:"https://www.google.com/maps/place/Gratia+Divina+School+Incorporated/@14.4937603,121.2901693,17.25z/data=!4m6!3m5!1s0x3397ea40ec481967:0xa5f8d3d4f4aa05a3!8m2!3d14.504886!4d121.28932!16s%2Fg%2F1hdz84pmh?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Don Domingo Capistrano Memorial Elementary School", coords: [14.497573530888605, 121.28926734798847], link:"https://www.google.com/maps/place/Don+Domingo+Capistrano+Memorial+Elementary+School/@14.5048912,121.2867451,17z/data=!4m6!3m5!1s0x3397ea3d92e4beb1:0xac3abf1a28652c!8m2!3d14.4976814!4d121.2893401!16s%2Fg%2F11y7y_zqf?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Niftylink Driving School", coords: [14.502257885093874, 121.29687031504896], link:"https://www.google.com/maps/place/Niftylink+Driving+School+-+Tanay/@14.4976866,121.2867652,17z/data=!4m6!3m5!1s0x3397eb5de11de537:0xd6e5a915edc9f516!8m2!3d14.5022789!4d121.2968707!16s%2Fg%2F11smwf38h3?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Academy Of St. Peter", coords: [14.513311370748367, 121.28354862406371], link:"https://www.google.com/maps/place/Academy+Of+St.+Peter,+Tanay/@14.5022841,121.2942958,17z/data=!4m6!3m5!1s0x3397ea40dc6bd8a7:0x769d526a7e83ba49!8m2!3d14.5133055!4d121.2835351!16s%2Fg%2F11q2ykv2x2?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" }
         ],
 
         hospitals: [
-            { name: "DELGADO DENTAL CLINIC", coords: [14.49357548849613, 121.28772675960529] },
-            { name: "Tanay General Hospital Eye Center", coords: [14.495546203173589, 121.28961973988355] },
-            { name: "Tanay Municipal Health Center", coords: [14.499974033576404, 121.28368332921121] },
-            { name: "Queen Angel Maternity & Lying In Clinic", coords: [14.499743569712992, 121.28691002655803] },
-            { name: "Clinica Dental 103 Dr. Glorichelle C. Vista- Quitiong", coords: [14.503512759943042, 121.28842614575746] },
-            { name: "Alagang Aldea Maternity Clinic (Lying-in new Barangay Hall)", coords: [14.509087320891737, 121.30116066002708] },
-            { name: "MARTANNE DENTAL CLINIC", coords: [14.544359806019255, 121.36670727606479] },
-            { name: "Tanay General Hospital", coords: [14.495561872496687, 121.28961626914361] },
-            { name: "Rizal Provincial Hospital System Tanay Annex", coords: [14.512832697881509, 121.2848920757302] },
-            { name: "Army Station Hospital", coords: [14.538226032526433, 121.36623486569428] }
+            { name: "DELGADO DENTAL CLINIC", coords: [14.49357548849613, 121.28772675960529], link:"https://www.google.com/maps/place/DELGADO+DENTAL+CLINIC/@14.4935794,121.2851515,17z/data=!3m1!4b1!4m6!3m5!1s0x3397eb3815769ec7:0x15261e5609dac9dd!8m2!3d14.4935742!4d121.2877264!16s%2Fg%2F11wmnhv8jq?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Tanay General Hospital", coords: [14.495546203173589, 121.28961973988355], link:"https://www.google.com/maps/place/Tanay+General+Hospital/@14.495556,121.28704,17z/data=!3m1!4b1!4m6!3m5!1s0x3397ea3c8ab9f1a3:0x66435e4b77a32782!8m2!3d14.4955508!4d121.2896149!16s%2Fg%2F1tgcpdfm?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Tanay Municipal Health Center", coords: [14.499974033576404, 121.28368332921121], link:"https://www.google.com/maps/place/Tanay+Municipal+Health+Center/@14.495556,121.28704,17z/data=!4m6!3m5!1s0x3397ea15c4acc793:0x1a82c27a6ca07001!8m2!3d14.499992!4d121.2836998!16s%2Fg%2F11clwkhcj7?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Queen Angel Maternity & Lying In Clinic", coords: [14.499743569712992, 121.28691002655803], link:"https://www.google.com/maps/place/Queen+Angel+Maternity+%26+Lying+In+Clinic/@14.4999972,121.2811249,17z/data=!4m6!3m5!1s0x3397ea3e1538a72d:0xc327e0732787f789!8m2!3d14.4997635!4d121.2868924!16s%2Fg%2F11c708qql2?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Clinica Dental 103 Dr. Glorichelle C. Vista- Quitiong", coords: [14.503512759943042, 121.28842614575746], link:"https://www.google.com/maps/place/Clinica+Dental+103/@14.4997687,121.2843175,17z/data=!4m6!3m5!1s0x3397ea40800feebb:0x236623b45ee9c6b6!8m2!3d14.5035316!4d121.2884264!16s%2Fg%2F11csq3h541?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Rizal Provincial Hospital System Tanay Annex", coords: [14.512832697881509, 121.2848920757302], link:"https://www.google.com/maps/place/Rizal+Provincial+Hospital+System+Tanay+Annex/@14.5128072,121.2823166,17z/data=!3m1!4b1!4m6!3m5!1s0x3397eb1c214bf2c9:0xcf33e9859d70659!8m2!3d14.512802!4d121.2848915!16s%2Fg%2F11j0p57_3p?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
         ],
+
         supermarkets: [
-            { name: "Savemore Market Tanay", coords: [14.494923755057028, 121.29101374611793] },
-            { name: "Puregold Tanay", coords: [14.495409362447491, 121.29047998654308] },
-            { name: "O!save Cecilio Santos Wawa", coords: [14.493692628720366, 121.28441383016784] },
-            { name: "Jeffple store (A.K.A Tanay palengke)", coords: [14.492892798018433, 121.28756006128097] },
-            { name: "Thriftmart- Tanay, Rizal", coords: [14.492819436775234, 121.28927734552796] },
-            { name: "DiviMart Grocery Store / (a.k.a talamart)", coords: [14.493140797776597, 121.28928874493918] },
-            { name: "Sioson's Grocery", coords: [14.49402436529427, 121.2884544654388] },
-            { name: "Cesar Meat Store", coords: [14.49281266260912, 121.2881295941017] }
+            { name: "Savemore Market Tanay", coords: [14.494923755057028, 121.29101374611793], link:"https://www.google.com/maps/place/Savemore+Market+Tanay/@14.4952609,121.2898565,18.75z/data=!4m6!3m5!1s0x3397ea3b81ff8137:0x747d54ea41473a88!8m2!3d14.4949124!4d121.2909768!16s%2Fg%2F1tgyt76n?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Puregold Tanay", coords: [14.495409362447491, 121.29047998654308], link:"https://www.google.com/maps/place/Puregold+Tanay/@14.4954077,121.2878888,17z/data=!3m1!4b1!4m6!3m5!1s0x3397ea3c88900e75:0x64287aa63fc84e8!8m2!3d14.4954025!4d121.2904637!16s%2Fg%2F1q6cqsvtr?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D"},
+            { name: "O!save Cecilio Santos Wawa", coords: [14.493692628720366, 121.28441383016784], link:"https://www.google.com/maps/place/O!save+Cecilio+Santos+Wawa/@14.4904097,121.2825258,17z/data=!4m6!3m5!1s0x3397eb003d18abb3:0x82685e58e97b2b49!8m2!3d14.4936751!4d121.2844259!16s%2Fg%2F11vz64k7x0?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Tanay Public Market", coords: [14.492771399118395, 121.28820584603434], link:"https://www.google.com/maps/place/Tanay+Public+Market/@14.4941162,121.2858534,17z/data=!4m6!3m5!1s0x3397ea22d69758bf:0x4b26b2a88a17a08!8m2!3d14.4927191!4d121.2882069!16s%2Fg%2F1tdc2rn3?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Thriftmart", coords: [14.492819436775234, 121.28927734552796], link:"https://www.google.com/maps/place/Thriftmart-+Tanay,+Rizal/@14.4927787,121.2867277,17z/data=!3m1!4b1!4m6!3m5!1s0x3397ea22d016681d:0x421eccb79e730a17!8m2!3d14.4927735!4d121.2893026!16s%2Fg%2F1hhkb8k8m?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "DiviMart Grocery Store", coords: [14.493140797776597, 121.28928874493918], link:"https://www.google.com/maps/place/DiviMart+Grocery+Store/@14.4927787,121.2867277,17z/data=!4m6!3m5!1s0x3397eb3475188379:0xa414c1c77310f3f!8m2!3d14.4931279!4d121.2893026!16s%2Fg%2F11l7961dqj?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Sioson's Grocery", coords: [14.49402436529427, 121.2884544654388], link:"https://www.google.com/maps/place/Sioson's+Grocery/@14.4936628,121.2845926,17z/data=!4m6!3m5!1s0x3397eb2867212de5:0x13421d6b7faccd68!8m2!3d14.4940069!4d121.288477!16s%2Fg%2F11szv10s1v?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D"},
+            { name: "Cesar Meat Store", coords: [14.49281266260912, 121.2881295941017], link:"https://www.google.com/maps/place/Cesar+Meat+Store/@14.4931647,121.2882871,19z/data=!4m6!3m5!1s0x3397ea22d6fef6b7:0x5285360edb678137!8m2!3d14.4928122!4d121.2881471!16s%2Fg%2F11b6hq7q_l?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" }
         ],
 
         stores: [
@@ -622,25 +650,24 @@ document.addEventListener("DOMContentLoaded", function() {
         ],
 
         fires: [
-            { name: "Tanay Central Fire Station", coords: [14.501177354135272, 121.28399491518783]},
-            { name: "Tanay Fire Sub Station", coords: [14.49293321185518, 121.28896242028308]}
+            { name: "Tanay Central Fire Station", coords: [14.501177354135272, 121.28399491518783], link:"https://www.google.com/maps/place/Tanay+Central+Fire+Station/@14.5035368,121.2858515,17z/data=!4m6!3m5!1s0x3397ea15cc349645:0xf827cb0a470b4b58!8m2!3d14.50119!4d121.2841155!16s%2Fg%2F11bwhbcxp_?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Tanay Fire Sub Station", coords: [14.49293321185518, 121.28896242028308], link:"https://www.google.com/maps/place/Tanay+Fire+Sub-+Station/@14.5011952,121.2815406,17z/data=!4m6!3m5!1s0x3397ebc811b7a409:0xdb57456514d3c021!8m2!3d14.4929224!4d121.2889975!16s%2Fg%2F11fk1svkgv?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" }
         ],
 
         polices: [
-            { name: "Tanay Police Station", coords: [14.50035048113622, 121.28253887312715] }
+            { name: "Tanay Police Station", coords: [14.50035048113622, 121.28253887312715], link:"https://www.google.com/maps/place/Tanay+Police+Station/@14.5003518,121.279968,17z/data=!3m1!4b1!4m6!3m5!1s0x3397ea15cde8f187:0xc0af8b7c349a6e4a!8m2!3d14.5003466!4d121.2825429!16s%2Fg%2F11bwgwcz0g?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" }
         ],
 
         vets: [
-            { name: "San Raphael Animal Clinic", coords: [14.499230870577062, 121.28413664169776] },
-            { name: "Tanay Vet Clinic and Pet Grooming Center", coords: [14.509265188344656, 121.28188934777414] },
-            { name: "Sacramento Veterinary Clinic", coords: [14.497809649924, 121.29321414085692] },
-            { name: "Dizon Agri Vet Ii", coords: [14.502454170898313, 121.2882427883243] }
+            { name: "San Raphael Animal Clinic", coords: [14.499230870577062, 121.28413664169776], link:"https://www.google.com/maps/place/San+Raphael+Animal+Clinic/@14.4992325,121.2815718,17z/data=!3m1!4b1!4m6!3m5!1s0x3397ea15a565c547:0xed16ec245f2ff89d!8m2!3d14.4992273!4d121.2841467!16s%2Fg%2F1pztymc6p?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Tanay Vet Clinic and Pet Grooming Center", coords: [14.509265188344656, 121.28188934777414], link:"https://www.google.com/maps/place/Tanay+Vet+Clinic+and+Pet+Grooming+Center/@14.5092613,121.2793406,17z/data=!3m1!4b1!4m6!3m5!1s0x3397eb8d5d35df6d:0x429389188009ba23!8m2!3d14.5092561!4d121.2819155!16s%2Fg%2F11qqyd5hk3?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Sacramento Veterinary Clinic", coords: [14.497809649924, 121.29321414085692], link:"https://www.google.com/maps/place/Sacramento+Veterinary+Clinic/@14.4978155,121.2906379,17z/data=!3m1!4b1!4m6!3m5!1s0x3397ea3962f3063f:0x3d8963d787d42cd!8m2!3d14.4978103!4d121.2932128!16s%2Fg%2F11bwnxwwzk?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" },
+            { name: "Dizon Agri Vet Ii", coords: [14.502454170898313, 121.2882427883243], link:"https://www.google.com/maps/place/Dizon+Agri+Vet+Ii/@14.5024162,121.2856699,17z/data=!3m1!4b1!4m6!3m5!1s0x3397ea3f9fab66f9:0xa0b4ffa6c4bd4ff9!8m2!3d14.502411!4d121.2882448!16s%2Fg%2F11bzvzm_lm?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D" }
         ],
     }
 
     const categoryMarkers = {};
 
-    // Adds POI Markers to the Map
     const addMarkers = (data, iconUrl) => {
         return data.map(({ name, coords }) => {
             const marker = L.marker(coords, { icon: L.icon({ iconUrl, iconSize: [38, 38] }) });
@@ -679,39 +706,36 @@ document.addEventListener("DOMContentLoaded", function() {
 
     
 
-    // // GPS
-    // function updateLocation(position) {
-    //     var lat = position.coords.latitude;
-    //     var lng = position.coords.longitude;
+    // GPS
+    function updateLocation(position) {
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
 
-    //     // Move the map to the user's location
-    //     map.setView([lat, lng], 18);
+        // Add or update a marker at the user's location
+        if (userMarker) {
+            userMarker.setLatLng([lat, lng]);
+        } else {
+            userMarker = L.marker([lat, lng]).addTo(map).bindPopup("You are here");
+        }
+    }
 
-    //     // Add or update a marker at the user's location
-    //     if (userMarker) {
-    //         userMarker.setLatLng([lat, lng]);
-    //     } else {
-    //         userMarker = L.marker([lat, lng]).addTo(map).bindPopup("You are here").openPopup();
-    //     }
-    // }
+    // Handle geolocation errors
+    function handleLocationError(error) {
+        console.log("Error with geolocation: ", error);
+        alert("Unable to retrieve location. Please enable GPS and refresh the page.");
+    }
 
-    // // Handle geolocation errors
-    // function handleLocationError(error) {
-    //     console.log("Error with geolocation: ", error);
-    //     alert("Unable to retrieve location. Please enable GPS and refresh the page.");
-    // }
+    // Add a marker to show the user's location (initialize as null)
+    var userMarker = null;
 
-    // // Add a marker to show the user's location (initialize as null)
-    // var userMarker = null;
-
-    // // Request the user’s location continuously
-    // if (navigator.geolocation) {
-    //     navigator.geolocation.watchPosition(updateLocation, handleLocationError, {
-    //         enableHighAccuracy: true,
-    //         maximumAge: 10000, // Cache the position for 10 seconds
-    //         timeout: 5000       // Timeout if position not available after 5 seconds
-    //     });
-    // } else {
-    //     alert("Geolocation is not supported by this browser.");
-    // }
+    // Request the user’s location continuously
+    if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(updateLocation, handleLocationError, {
+            enableHighAccuracy: true,
+            maximumAge: 5000, // Cache the position for 10 seconds
+            timeout: 5000       // Timeout if position not available after 5 seconds
+        });
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
 });
