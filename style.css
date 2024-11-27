@@ -434,15 +434,17 @@ body {
     }
 
     footer {
-        display: flex; /* Show footer instead */
-        background-color: #696a82; /* Same as header */
-        height: 70px; /* Match header height */
-        width: 100%;
-        position: fixed;
-        bottom: 0; /* Position footer at the bottom */
-        z-index: 999; /* Ensure it stays on top */
-        align-items: center; /* Center contents vertically */
-        justify-content: center; /* Center contents horizontally */
+        display: flex; /* Ensure visibility */
+        background-color: #696a82; /* Match the header */
+        height: 70px; /* Footer height */
+        width: (100%); /* 10px margin for sides */
+        position: fixed; /* Stick the footer to the bottom */
+        bottom: 10px; /* Add 10px margin from the bottom of the viewport */
+        z-index: 999; /* Ensure it appears above other elements */
+        align-items: center; /* Vertically center content */
+        justify-content: center; /* Horizontally center content */
+        margin: 0 auto; /* Center horizontally */
+        border-radius: 5px; /* Optional: Rounded edges for footer */
     }
     
     /* Additional styles for footer content */
