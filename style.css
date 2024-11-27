@@ -260,6 +260,7 @@ body {
     right: 20px; /* 20px margin from the right */
     bottom: 20px; /* 20px margin from the bottom */
     left: 0;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -398,9 +399,6 @@ body {
     .logo-circle {
         position: static; /* Remove absolute positioning */
         margin: 0 auto; /* Center the logo horizontally */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), /* Regular shadow */
-                    0 6px 20px rgba(0, 0, 0, 0.19); /* Soft, wide shadow */
-        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
         border: 4px solid #d1cec1; /* Add border */
     }
 
@@ -415,21 +413,20 @@ body {
     /* Sidebar hidden by default */
     .sidebar {
         position: fixed;
-        bottom: -100%; /* Start off-screen */
         left: 5%; /* Center horizontally */
         width: 90%; /* Sidebar width */
         height: calc(100vh - 160px); /* Adjust height */
         background-color: #696a82; /* Background color */
         border-radius: 10px; /* Rounded corners */
         box-shadow: 0 10px 8px rgba(0, 0, 0, 0.2); /* Optional shadow */
-        transform: translateY(150%); /* Start fully hidden */
+        transform: translateX(150%); /* Start fully hidden */
         transition: transform 0.3s ease-in-out; /* Smooth transition */
         z-index: 999; /* Ensure it stays above other elements */
     }
 
     /* Sidebar visible state */
     .sidebar.visible {
-        transform: translateY(0); /* Slide into view */
+        transform: translateX(0); /* Slide into view */
     }
 
     footer {
@@ -452,6 +449,8 @@ body {
         justify-content: center;
     }
 
+    
+
     .title-container {
         height: 55px;
     }
@@ -465,12 +464,104 @@ body {
     .main-footer .header-title {
         font-size: 1.5rem; /* Adjust title size for mobil   e */
         color: white;
+    }  
+
+    /* HelpTab styles */
+    .helpTab {
+        position: fixed;
+        top: 8%;
+        left: 5%; /* Center horizontally */
+        width: 90%; /* Sidebar width */
+        height: calc(100vh - 160px); /* Adjust height */
+        background-color: #696a82; /* Background color */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 10px 8px rgba(0, 0, 0, 0.2); /* Optional shadow */
+        transform: translateX(-150%); /* Start fully hidden */
+        transition: transform 0.3s ease-in-out; /* Smooth transition */
+        z-index: 999; /* Ensure it stays above other elements */
+    }
+
+    /* Sidebar visible state */
+    .helptab.visible {
+        transform: translateX(0); /* Slide into view */
+    }
+
+    /* Help content styling */
+    .help-content h2 {
+        color: #adcafe;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .help-content p {
+        font-size: 1rem;
+        color: #ffffff;
+        margin: 15px;
+        text-align: justify;
+    }
+
+    /* Help button styles */
+    .help-button {
+        position: relative;
+        width: 40px;
+        height: 40px;
+        background-color: #adcafe;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+        cursor: pointer;
+        margin-left: 40px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s, transform 0.2s;
+        border: 2px solid #696a82;
+    }
+
+    .help-button.scaled {
+        transform: scale(1.1); /* Slightly enlarge */
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3), /* Stronger shadow */
+                    0 8px 24px rgba(0, 0, 0, 0.25); /* Wider shadow */
+    } 
+
+    .menu-button {
+        width: 40px;
+        height: 40px;
+        background-color: #adcafe;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        margin-right: 40px; /* Space between menu button and logo */
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s, background-color 0.3s;
+        border: 2px solid #696a82;
+    }
+
+    .menu-button.scaled {
+        transform: scale(1.1); /* Slightly enlarge */
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3), /* Stronger shadow */
+                    0 8px 24px rgba(0, 0, 0, 0.25); /* Wider shadow */
+    }
+
+    .menu-line {
+        width: 60%;
+        height: 2.5px;
+        background-color: white;
+        margin: 2px 0; /* Space between lines */
+        border-radius: 2px; /* Rounded edges */
+        transition: background-color 0.3s;
     }
 
     .map-background {
         top: 10px;
         left: 0px; /* Position it next to the sidebar */
-        height: calc(100vmax - 105px); /* Adjust height to fit within viewport, 110px header + 20px bottom margin */
+        height: calc(100vh - 105px); /* Adjust height to fit within viewport, 110px header + 20px bottom margin */
         width: calc(100% - 5px); /* Adjust width to fit within viewport, 250px sidebar + 20px margin */
     }
 
