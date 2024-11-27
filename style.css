@@ -260,7 +260,6 @@ body {
     right: 20px; /* 20px margin from the right */
     bottom: 20px; /* 20px margin from the bottom */
     left: 0;
-    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -471,7 +470,7 @@ body {
     .map-background {
         top: 10px;
         left: 0px; /* Position it next to the sidebar */
-        height: calc(100vh - 105px); /* Adjust height to fit within viewport, 110px header + 20px bottom margin */
+        height: calc(100vmax - 105px); /* Adjust height to fit within viewport, 110px header + 20px bottom margin */
         width: calc(100% - 5px); /* Adjust width to fit within viewport, 250px sidebar + 20px margin */
     }
 
