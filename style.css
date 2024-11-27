@@ -443,7 +443,6 @@ body {
         align-items: center; /* Vertically center content */
         justify-content: center; /* Horizontally center content */
         margin: 0 auto; /* Center horizontally */
-        border-radius: 5px; /* Optional: Rounded edges for footer */
     }
     
     /* Additional styles for footer content */
